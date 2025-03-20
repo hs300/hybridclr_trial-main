@@ -52,9 +52,13 @@ public class LoadDll : MonoBehaviour
 
         foreach (var asset in assets)
         {
-            string dllPath = GetWebRequestPath(asset);
-            Debug.Log($"start download asset:{dllPath}");
-            UnityWebRequest www = UnityWebRequest.Get(dllPath);
+			var host = "http://192.168.6.4:8080";
+			//var host = Application.streamingAssetsPath;
+			var uri = new System.Uri(Path.Combine(host, asset));
+
+            //string dllPath = GetWebRequestPath(uri);
+            Debug.Log($"start download asset:{uri}");
+            UnityWebRequest www = UnityWebRequest.Get(uri);
             yield return www.SendWebRequest();
 
 #if UNITY_2020_1_OR_NEWER
